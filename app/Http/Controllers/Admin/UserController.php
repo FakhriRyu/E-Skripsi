@@ -33,6 +33,7 @@ class UserController extends Controller
         'name' => 'required|string',
         'username' => 'required|string|unique:users',
         'password' => 'required|string',
+        'role' => 'required|in:admin,mahasiswa,dosen', // Ensure role is one of the allowed values
     ]);
 
     // Simpan data ke database
@@ -41,8 +42,6 @@ class UserController extends Controller
     // Redirect ke halaman index
     return redirect()->route('admin.dashboard');
 }
-
-
     /**
      * Display the specified resource.
      */

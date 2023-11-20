@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Mahasiswa\BimbinganController;
+use App\Http\Controllers\Mahasiswa\DashboardMahasiswaController;
 use App\Http\Controllers\Mahasiswa\SkripsiController;
 use App\Http\Controllers\SessionController;
 use App\Models\Dosen;
@@ -23,7 +25,7 @@ use App\Http\Controllers\Admin\PembimbingController;
 
 Route::get('/admin', [DashboardController::class, 'index'])->name('admin.dashboard');
 
-Route::get('/mahasiswa', [MahasiswaController::class, 'index']);
+Route::get('/admin/mahasiswa', [MahasiswaController::class, 'index']);
 
 Route::get('/admin/create', [MahasiswaController::class, 'create'])->name('admin.mahasiswa.create');
 
@@ -52,7 +54,7 @@ Route::get('/logout', [SessionController::class, 'logout']);
 
 Route::middleware(['UserAkses'])->group(function () {
     Route::get('/admin', [DashboardController::class, 'index'])->name('admin.dashboard');
-    Route::get('/mahasiswa', [SkripsiController::class, 'index'])->name('mahasiswa.dashboard');
+    Route::get('/mahasiswa', [DashboardMahasiswaController::class, 'index'])->name('mahasiswa.dashboard');
     Route::get('/dosen', [DashboardController::class, 'index'])->name('dosen.dashboard');
 });
 
@@ -60,4 +62,13 @@ Route::middleware(['guest'])->group(function(){
     Route::get('/login', [SessionController::class, 'index']);
     Route::post('/login', [SessionController::class, 'login'])->name('login');
 });
+Route::get('/Home', function(){
+    return redirect('/login');
+});
 
+Route::middleware(['auth', 'mahasiswa'])->group(function () {
+    Route::get('/mahasiswa', [DashboardMahasiswaController::class, 'index']);
+});
+
+
+Route::get('/mahasiswa/bimbingan', [BimbinganController::class, 'index'])->name('mahasiswa.bimbingan');
