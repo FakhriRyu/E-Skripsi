@@ -9,6 +9,6 @@ class PembimbingController extends Controller
 {
     public function index()
     {
-        return view("admin.pembimbing");
+        return view("admin.pembimbing.index");
     }
 }

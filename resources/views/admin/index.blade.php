@@ -3,6 +3,6 @@
 @section('container')
 
 
-singa laut
+Welcome, Admin!
 
 @endsection
