@@ -26,7 +26,6 @@ class MonitoringDosenController extends Controller
             $bimbingans = Bimbingan::with('mahasiswa') // Adjust the relationship name if needed
                 ->where('dosen_id', $dosen->id)
                 ->get();
-
             // Pass data to the view
             return view('dosens.monitoring.index', compact('bimbingans'));
         } else {
@@ -78,9 +77,9 @@ class MonitoringDosenController extends Controller
 
         try {
             // Find the Bimbingan based on the provided IDs
-            $bimbingan = Bimbingan::findOrFail($id);
+            $bimbingan = Bimbingan::findOrFail($idp);
             // $pembimbing = Pembimbing::findOrFail($id);
-
+            // dd($bimbingan);
             // Update non-file fields
             $bimbingan->update([
                 // 'judul' => $request->input('judul'),
