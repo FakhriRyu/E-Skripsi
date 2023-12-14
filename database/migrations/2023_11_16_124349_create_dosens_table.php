@@ -15,8 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('NIP');
-            $table->string('password');
+            $table->string('NomorNIP');
             $table->timestamps();
+
+            $table->foreign('NIP')->references('username')->on('users')->onDelete('cascade');
         });
     }
 

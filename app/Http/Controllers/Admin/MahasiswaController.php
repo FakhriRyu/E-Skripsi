@@ -28,7 +28,6 @@ class MahasiswaController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|string',
             'NPM' => 'required|string|unique:mahasiswas,npm',
-            'Judul' => 'required|string',
         ]);
 
         // Simpan data ke database
@@ -61,8 +60,6 @@ public function update(Request $request, $id)
     $validatedData = $request->validate([
         'name' => 'required|string',
         'NPM' => 'required|string|unique:mahasiswas,npm,' . $id,
-        'Judul' => 'required|string',
-        'Password' => 'required|string',
     ]);
 
     // Update data in the database

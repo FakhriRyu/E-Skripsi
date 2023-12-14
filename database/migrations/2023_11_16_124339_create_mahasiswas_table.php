@@ -15,7 +15,7 @@ return new class extends Migration
         $table->id();
         $table->string('name');
         $table->string('NPM')->unique();
-        $table->string('Judul');
+        $table->string('judul')->nullable();
         $table->timestamps();
 
         // Assuming 'username' is the unique key on the 'users' table

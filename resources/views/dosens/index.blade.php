@@ -2,5 +2,6 @@
 
 @section('containerdosen')
 
-<h1>aku dosen</h1>
+<h1>welcome</h1>
+
 @endsection

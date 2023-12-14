@@ -2,6 +2,7 @@
 
 use App\Models\Dosen;
 use App\Models\Mahasiswa;
+use App\Models\Skripsi;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,9 +16,9 @@ return new class extends Migration
     {
         Schema::create('pembimbings', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Mahasiswa::class);
-            $table->foreignIdFor(Dosen::class);
-            $table->enum('peran', ['Pembimbing Utama','Pembimbing Pendamping']);
+            $table->foreignIdFor(Mahasiswa::class)->constrained();
+            $table->foreignId('dosen1_id')->constrained('dosens');
+            $table->foreignId('dosen2_id')->constrained('dosens');
             $table->timestamps();
         });
     }

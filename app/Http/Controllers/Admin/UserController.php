@@ -13,7 +13,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view ('admin.user');
+        $users = User::all();
+    
+        return view('admin.user.index', compact('users'));
     }
 
     /**
@@ -21,27 +23,28 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view ('admin.user.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-{
-    $validatedData = $request->validate([
-        'name' => 'required|string',
-        'username' => 'required|string|unique:users',
-        'password' => 'required|string',
-        'role' => 'required|in:admin,mahasiswa,dosen', // Ensure role is one of the allowed values
-    ]);
+    {
+        $validatedData = $request->validate([
+            'name' => 'required|string',
+            'username' => 'required|string|unique:users',
+            'password' => 'required|string',
+            'role' => 'required|in:admin,mahasiswa,dosen', // Ensure role is one of the allowed values
+        ]);
 
-    // Simpan data ke database
-    User::create($validatedData);
+        // Simpan data ke database
+        User::create($validatedData);
 
-    // Redirect ke halaman index
-    return redirect()->route('admin.dashboard');
-}
+        // Redirect ke halaman index
+        return redirect()->route('admin.dashboard');
+    }
+
     /**
      * Display the specified resource.
      */
@@ -55,7 +58,9 @@ class UserController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $user = User::findOrFail($id);
+
+        return view('admin.user.edit', compact('user'));
     }
 
     /**
@@ -63,7 +68,18 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required|string',
+            'username' => 'required|string|unique:users,username,' . $id,
+            'password' => 'nullable|string',
+            'role' => 'required|in:admin,mahasiswa,dosen', // Ensure role is one of the allowed values
+        ]);
+
+        $user = User::findOrFail($id);
+        $user->update($validatedData);
+
+        // Redirect ke halaman index atau halaman detail user
+        return redirect()->route('admin.users.index');
     }
 
     /**
@@ -71,6 +87,10 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $user = User::findOrFail($id);
+        $user->delete();
+
+        // Redirect ke halaman index
+        return redirect()->route('admin.users.index');
     }
 }

@@ -9,5 +9,10 @@ class Dosen extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'NIP', 'password'];
+    protected $fillable = ['name', 'NIP','NomorNIP'];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'username', 'NIP');
+    }
 }

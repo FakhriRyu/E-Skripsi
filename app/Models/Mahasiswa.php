@@ -9,11 +9,15 @@ class Mahasiswa extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'NPM', 'Judul'];
+    protected $fillable = ['name', 'NPM'];
+    public function bimbingans()
+    {
+        return $this->hasMany(Bimbingan::class);
+    }
 
     public function user()
     {
-        return $this->hasOne(User::class, 'username', 'NPM');
+        return $this->belongsTo(User::class, 'username', 'NPM');
     }
 }
 

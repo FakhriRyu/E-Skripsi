@@ -12,10 +12,10 @@
                     Nama Dosen
                 </th>
                 <th scope="col" class="px-6 py-3">
-                    NIP
+                    Username
                 </th>
                 <th scope="col" class="px-6 py-3">
-                    Prodi
+                    NIP
                 </th>
                 <th scope="col" class="px-6 py-3">
                     Aksi
@@ -32,7 +32,7 @@
                         {{ $dosen->NIP }}
                     </td>
                     <td class="px-6 py-4">
-                        {{ $dosen->password }}
+                        {{ $dosen->NomorNIP }}
                     </td>
                     <td>
                         <a href="{{ route('admin.dosen.edit', $dosen->id) }}" class="text-yellow-400 hover:text-white border border-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-yellow-300 dark:text-yellow-300 dark:hover:text-white dark:hover:bg-yellow-400 dark:focus:ring-yellow-900">Edit</a>
