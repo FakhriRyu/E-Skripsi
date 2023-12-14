@@ -3,7 +3,7 @@
 @section('containerdosen')
     <div class="max-w-2xl mx-auto p-8">
         <h2 class="text-2xl font-semibold mb-4">Update Bimbingan</h2>
-
+        {{-- {{ dd($bimbingan) }} --}}
         <form action="{{ route('dosens.monitoring.update', ['id' => $pembimbing->id, 'idp' => $bimbingan->id]) }}" method="POST">
             @csrf
             @method('PUT')
@@ -35,11 +35,11 @@
                     <span class="text-red-500">{{ $message }}</span>
                 @enderror
             </div>
-            
-            
 
 
-            
+
+
+
 
             <div class="mb-4">
                 <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Update Bimbingan</button>
