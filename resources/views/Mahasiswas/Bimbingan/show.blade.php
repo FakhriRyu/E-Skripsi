@@ -19,12 +19,14 @@
                     </a>
                 </dd>
             </div>
-            
-            
+
+
 
             <div class="mb-4">
                 <dt class="text-sm font-medium text-gray-500">Pembimbing</dt>
-                <dd class="text-lg">{{ optional($bimbingan->pembimbing)->dosen1->name }}</dd>
+                <dd class="text-lg">{{ $bimbingan->dosen->name }}</dd>
+                {{-- <dd class="text-lg">{{ optional($bimbingan->pembimbing)->dosen1->name }}</dd> --}}
+                {{-- kenapa dosen 1? --}}
             </div>
 
             <div class="mb-4">
