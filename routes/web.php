@@ -75,13 +75,13 @@ Route::middleware(['auth', 'dosen'])->group(function () {
     Route::get('/dosen', [DashboardDosenController::class, 'index'])->name('dosen.dashboard');
     
     Route::get('/dosen/monitoring', [MonitoringDosenController::class, 'index'])->name('dosen.monitoring');
-    Route::get('/dosens/monitoring/{id}', [MonitoringDosenController::class, 'show'])
+    Route::get('/dosen/monitoring/{id}', [MonitoringDosenController::class, 'show'])
     ->name('dosens.monitoring.show');
-    Route::get('/dosens/monitoring/{id}/{idp}', [MonitoringDosenController::class, 'show2'])
+    Route::get('/dosen/monitoring/{id}/{idp}', [MonitoringDosenController::class, 'show2'])
     ->name('dosens.monitoring.detail');
-    Route::get('/dosens/monitoring-edit/{id}/{idp}', [MonitoringDosenController::class, 'edit'])
+    Route::get('/dosen/monitoring-edit/{id}/{idp}', [MonitoringDosenController::class, 'edit'])
     ->name('dosens.monitoring.edit');
-    Route::put('/dosens/monitoring-update/{id}/{idp}', [MonitoringDosenController::class, 'update'])
+    Route::put('/dosen/monitoring-update/{id}/{idp}', [MonitoringDosenController::class, 'update'])
         ->name('dosens.monitoring.update');
     // Route::get('/dosen/bimbingan', [BimbinganDosenController::class, 'index'])->name('dosen.bimbingan');
 });

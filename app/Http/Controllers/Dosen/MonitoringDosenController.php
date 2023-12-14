@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Dosen;
 
+use App\Models\Dosen;
 use App\Models\Bimbingan;
+use App\Models\Mahasiswa;
 use App\Models\Pembimbing;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -11,44 +13,28 @@ use Illuminate\Support\Facades\Storage;
 
 class MonitoringDosenController extends Controller
 {
-    function index()
+    public function index()
 {
     $user = Auth::user();
-    // $dosen =$user->dosen;
-    // $p = Pembimbing::where('NIP', $user->username);
 
-    // dd($dosen); 
+    // Get the Dosen based on the NIP (username) of the authenticated user
+    $dosen = Dosen::where('NIP', $user->username)->first();
 
-    // dd($user);
-    // $pembimbing = Bimbingan::where('dosen_id', $dosen->id)
-    // ->get();
-    // Get the Pembimbing based on the NIP (username) of the authenticated user
-    $pembimbing = Pembimbing::with('dosen1', 'dosen2')->whereHas('dosen1', function ($query) use ($user) {
-        $query->where('NIP', $user->username);
-    })->orWhereHas('dosen2', function ($query) use ($user) {
-        $query->where('NIP', $user->username);
-    })->get();
-
-    // dd($pembimbing);
-
-    // Check if Pembimbing is not null before accessing its properties
-    if ($pembimbing) {
-        // Get the Dosen associated with the Pembimbing
-        // $dosen1 = $pembimbing->dosen1;
-        // $dosen2 = $pembimbing->dosen2;
-
-
-        // // Get all students associated with the Pembimbing
-        // $students = $pembimbing->mahasiswas;
-
+    // Check if Dosen is not null before accessing its properties
+    if ($dosen) {
+        // Get the Pembimbing with relationships loaded
+        $bimbingans = Bimbingan::with('mahasiswa') // Adjust the relationship name if needed
+            ->where('dosen_id', $dosen->id)
+            ->get();
+        
         // Pass data to the view
-        return view('dosens.monitoring.index', compact('pembimbing'));
-        // return view('dosens.monitoring', ['dosen1' => $dosen1, 'dosen2' => $dosen2, 'pembimbing' => $pembimbing, 'students' => $students]);
+        return view('dosens.monitoring.index', compact('bimbingans'));
     } else {
-        // Handle the case where no Pembimbing is found
+        // Handle the case where no Dosen is found
         return view('dosens.monitoring.index');
     }
 }
+
 
 public function show($id)
     {
