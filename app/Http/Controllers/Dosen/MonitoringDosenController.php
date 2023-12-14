@@ -14,36 +14,40 @@ use Illuminate\Support\Facades\Storage;
 class MonitoringDosenController extends Controller
 {
     public function index()
-{
-    $user = Auth::user();
+    {
+        $user = Auth::user();
 
-    // Get the Dosen based on the NIP (username) of the authenticated user
-    $dosen = Dosen::where('NIP', $user->username)->first();
+        // Get the Dosen based on the NIP (username) of the authenticated user
+        $dosen = Dosen::where('NIP', $user->username)->first();
 
-    // Check if Dosen is not null before accessing its properties
-    if ($dosen) {
-        // Get the Pembimbing with relationships loaded
-        $bimbingans = Bimbingan::with('mahasiswa') // Adjust the relationship name if needed
-            ->where('dosen_id', $dosen->id)
-            ->get();
-        
-        // Pass data to the view
-        return view('dosens.monitoring.index', compact('bimbingans'));
-    } else {
-        // Handle the case where no Dosen is found
-        return view('dosens.monitoring.index');
+        // Check if Dosen is not null before accessing its properties
+        if ($dosen) {
+            // Get the Pembimbing with relationships loaded
+            $bimbingans = Bimbingan::with('mahasiswa') // Adjust the relationship name if needed
+                ->where('dosen_id', $dosen->id)
+                ->get();
+
+            // Pass data to the view
+            return view('dosens.monitoring.index', compact('bimbingans'));
+        } else {
+            // Handle the case where no Dosen is found
+            return view('dosens.monitoring.index');
+        }
     }
-}
 
 
-public function show($id)
+    public function show($id)
     {
         // Get the Pembimbing based on the provided ID
-        $pembimbing = Pembimbing::findOrFail($id);
-        // Additional logic or data retrieval for the show function can be added here
+        // $pembimbing = Pembimbing::findOrFail($id)->where('dosen_id','=',auth()->user()->username);
+        $dosen = Dosen::where('NIP','=',auth()->user()->username)->first();
+        // dd($dosen->id);
+        $bimbingans = Bimbingan::where('dosen_id','=',$dosen->id)->get();
 
+        // dd(auth()->user());
+        // Additional logic or data retrieval for the show function can be added here
         // Pass data to the view
-        return view('dosens.monitoring.show', compact('pembimbing'));
+        return view('dosens.monitoring.show', compact('bimbingans'));
     }
 
     public function show2($id, $idp)
@@ -116,18 +120,15 @@ public function show($id)
         }
     }
 
-    
+
     // Edit method to display the edit form for Bimbingan
     public function edit($id, $idp)
     {
         // Get the Bimbingan based on the provided ID
         $bimbingan = Bimbingan::findOrFail($idp);
         $pembimbing = Pembimbing::findOrFail($id);
-        
+
         // Return the view with the Bimbingan data
         return view('dosens.monitoring.edit', compact('bimbingan', 'pembimbing'));
     }
-
-
-
 }
