@@ -16,16 +16,14 @@ class MonitoringDosenController extends Controller
     public function index()
 {
     $user = Auth::user();
-
+    
     // Get the Dosen based on the NIP (username) of the authenticated user
     $dosen = Dosen::where('NIP', $user->username)->first();
-
+    // dd($dosen->id);
     // Check if Dosen is not null before accessing its properties
     if ($dosen) {
         // Get the Pembimbing with relationships loaded
-        $bimbingans = Bimbingan::with('mahasiswa') // Adjust the relationship name if needed
-            ->where('dosen_id', $dosen->id)
-            ->get();
+        $bimbingans = Bimbingan::with('mahasiswa.bimbingans')->where('dosen_id', $dosen->id)->get();
         
         // Pass data to the view
         return view('dosens.monitoring.index', compact('bimbingans'));
