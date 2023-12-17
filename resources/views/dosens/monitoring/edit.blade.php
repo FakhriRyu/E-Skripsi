@@ -7,15 +7,11 @@
         <form action="{{ route('dosens.monitoring.update', ['id' => $pembimbing->id, 'idp' => $bimbingan->id]) }}" method="POST">
             @csrf
             @method('PUT')
-
+            
             <div class="mb-4">
-                <label for="file_revisi" class="text-sm font-medium text-gray-500">File revisi</label>
-                <input type="file" name="file_revisi" id="file_revisi" class="form-input">
-                @error('file_revisi')
-                    <span class="text-red-500">{{ $message }}</span>
-                @enderror
+                <label for="waktu2" class="text-sm font-medium text-gray-500">waktu</label>
+                <input type="datetime-local" id="waktu2" name="waktu2" value="{{ now('Asia/Jakarta')->toDateTimeLocalString() }}" readonly class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
             </div>
-
             <div class="mb-4">
                 <label for="status" class="text-sm font-medium text-gray-500">Status</label>
                 <select name="status" id="status" class="form-select">
@@ -27,6 +23,14 @@
                     <span class="text-red-500">{{ $message }}</span>
                 @enderror
             </div>
+            <div class="mb-4">
+                <label for="file_revisi" class="text-sm font-medium text-gray-500">File revisi</label>
+                <input type="file" name="file_revisi" id="file_revisi" class="form-input">
+                @error('file_revisi')
+                    <span class="text-red-500">{{ $message }}</span>
+                @enderror
+            </div>
+
 
             <div class="mb-4">
                 <label for="keterangan" class="text-sm font-medium text-gray-500">Keterangan</label>

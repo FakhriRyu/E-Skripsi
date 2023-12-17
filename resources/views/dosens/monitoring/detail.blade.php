@@ -1,58 +1,66 @@
 @extends('layouts.dosenapp')
 
 @section('containerdosen')
-    <div class="max-w-2xl mx-auto p-8">
-        <h2 class="text-2xl font-semibold mb-4">Detail Bimbingan</h2>
+<div class="container mx-auto mt-5  bg-white max-w-4xl">
 
-        <dl class="grid grid-cols-2 gap-4">
+    <div class="flex space-x-9">
+
+        <div class="w-full max-w-md bg-white shadow-md p-6">
+            <h2 class="text-2xl font-semibold mb-4">Bimbingan Mahasiswa</h2>
             <div class="mb-4">
-                <dt class="text-sm font-medium text-gray-500">Judul</dt>
-                <dd class="text-lg">{{ $bimbingan->judul }}</dd>
+                <label class="block text-sm font-medium text-gray-600">Nama</label>
+                <input type="text" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" value="{{ $bimbingan->mahasiswa->name }}" readonly>
+            </div>
+            <div class="mb-4">
+                <label class="block text-sm font-medium text-gray-600">Waktu Bimbingan</label>
+                <input type="text" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" value="{{ \Carbon\Carbon::parse($bimbingan->waktu1)->locale('id_ID')->isoFormat('dddd, D MMMM YYYY H:mm') }}
+                " readonly>
             </div>
 
             <div class="mb-4">
-                <dt class="text-sm font-medium text-gray-500">Bagian</dt>
-                <dd class="text-lg">{{ $bimbingan->bagian }}</dd>
+                <label class="block text-sm font-medium text-gray-600">Bagian</label>
+                <input type="text" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" value="{{ $bimbingan->bagian }}" readonly>
+            </div>
+            <div class="mb-4">
+                <label class="block text-sm font-medium text-gray-600">Status</label>
+                <input type="text" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" value="{{ $bimbingan->status }}" readonly>
+            </div>
+            <form action="{{ route('download.skripsi', ['filename' => explode("skripsi_files/", $bimbingan->file_skripsi)[1]]) }}" method="get">
+                <button type="submit" class="text-white bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded">
+                    Download Skripsi
+                </button>
+            </form>
+            
+        </div>
+
+        <div class="w-full max-w-md bg-white shadow-md p-4">
+            <h2 class="text-2xl font-semibold mb-4">Bimbingan Dosen</h2>
+            <div class="mb-4">
+                <label class="block text-sm font-medium text-gray-600">Nama</label>
+                <input type="text" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" value="{{ $bimbingan->dosen->name }}" readonly>
             </div>
 
             <div class="mb-4">
-                <dt class="text-sm font-medium text-gray-500">File Skripsi</dt>
-                <dd class="text-lg">
-                    <a href="{{ route('download.skripsi', ['filename' => explode("skripsi_files/", $bimbingan->file_skripsi)[1]]) }}" class="text-blue-500 hover:underline">
-                        Download Skripsi
-                    </a>
-                </dd>
+                <label class="block text-sm font-medium text-gray-600">Waktu Konfirmasi</label>
+                <input type="text" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" value="{{ $bimbingan->waktu2 ?: 'belum dikonfirmasi' }}" readonly>
             </div>
-
-
-
             <div class="mb-4">
-                <dt class="text-sm font-medium text-gray-500">Pembimbing</dt>
-                <dd class="text-lg">{{ $bimbingan->dosen->name }}</dd>
+                <label for="deskripsi" class="block text-sm font-medium text-gray-600">Catatan</label>
+                <textarea rows="4" class="block w-full mt-1 text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" readonly>{{ $bimbingan->keterangan ?: 'Tidak ada deskripsi' }}</textarea>
             </div>
+            @if ($bimbingan->file_revisi)
+    <form action="{{ route('download.skripsi', ['filename' => explode("skripsi_files/", $bimbingan->file_revisi)[1]]) }}" method="get">
+        <button type="submit" class="text-white bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded">
+            Download Revisi
+        </button>
+    </form>
+@else
+    <p>Belum ada file revisi untuk diunduh.</p>
+@endif
 
-            <div class="mb-4">
-                <dt class="text-sm font-medium text-gray-500">Waktu dan Tanggal</dt>
-                <dd class="text-lg">
-                    {{ $bimbingan->waktu1 }}
-                </dd>
-            </div>
 
-            <div class="mb-4">
-                <dt class="text-sm font-medium text-gray-500">file revisi</dt>
-                <dd class="text-lg">{{ $bimbingan->file_revisi }}</dd>
-            </div>
-
-            <div class="mb-4">
-                <dt class="text-sm font-medium text-gray-500">Status</dt>
-                <dd class="text-lg">{{ $bimbingan->status }}</dd>
-            </div>
-
-            <div class="mb-4">
-                <dt class="text-sm font-medium text-gray-500">waktu2</dt>
-                <dd class="text-lg">{{ $bimbingan->waktu2 }}</dd>
-            </div>
-
-        </dl>
+            
+        </div>
+    </div>
     </div>
 @endsection

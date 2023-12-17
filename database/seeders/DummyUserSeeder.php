@@ -41,6 +41,12 @@ class DummyUserSeeder extends Seeder
                 'password' => bcrypt('password'),
                 'role' => 'dosen'
             ],
+            [
+                'name' => 'Elisa',
+                'username' => 'G1A021008',
+                'password' => bcrypt('password'),
+                'role' => 'mahasiswa'
+            ],
         ];
 
 
@@ -71,6 +77,10 @@ class DummyUserSeeder extends Seeder
                 'name' => 'Fakhri',
                 'NPM' => 'G1A021050',
             ],
+            [
+                'name' => 'Elisa',
+                'NPM' => 'G1A021008',
+            ],
         ];
         foreach ($mahasiswas as $key => $val) {
             Mahasiswa::create($val);
@@ -81,6 +91,11 @@ class DummyUserSeeder extends Seeder
                 'mahasiswa_id' => '1',
                 'dosen1_id' => '1',
                 'dosen2_id'=> '2',
+            ],
+            [
+                'mahasiswa_id' => '2',
+                'dosen1_id' => '2',
+                'dosen2_id'=> '1',
             ],
         ];
         foreach ($pembimbings as $key => $val) {
