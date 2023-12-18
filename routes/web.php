@@ -49,6 +49,9 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/pembimbing', [PembimbingController::class, 'index'])->name('admin.pembimbing.index');
     Route::get('/admin/pembimbing/create', [PembimbingController::class, 'create'])->name('admin.pembimbing.create');
     Route::post('/admin/pembimbing/store', [PembimbingController::class, 'store'])->name('admin.pembimbing.store');
+    Route::get('/admin/pembimbing/{id}/edit', [PembimbingController::class, 'edit'])->name('admin.pembimbing.edit');
+    Route::put('/admin/pembimbing/{id}', [PembimbingController::class, 'update'])->name('admin.pembimbing.update');
+    Route::delete('/admin/pembimbing/{id}', [PembimbingController::class, 'destroy'])->name('admin.pembimbing.destroy');
 
     Route::get('/admin/user', [UserController::class, 'index'])->name('admin.users.index');
     Route::post('/admin/user', [UserController::class, 'store'])->name('users.store');
@@ -63,12 +66,12 @@ Route::middleware(['auth', 'mahasiswa'])->group(function () {
     Route::post('/mahasiswa/update-profile', [DashboardMahasiswaController::class, 'updateProfile'])->name('mahasiswa.updateProfile');
     Route::post('/mahasiswa/updatePassword', [DashboardMahasiswaController::class, 'updatePassword'])->name('mahasiswa.updatePassword');
     Route::get('/mahasiswa/monitoring', [BimbinganController::class, 'index'])->name('mahasiswa.monitoring.index');
-    Route::get('/mahasiswa/bimbingan',[BimbinganController::class, 'create'])->name('mahasiswa.monitoring.create');
+    Route::get('/mahasiswa/bimbingan', [BimbinganController::class, 'create'])->name('mahasiswa.monitoring.create');
     route::post('mahasiswa/bimbingan', [BimbinganController::class, 'store'])->name('mahasiswa.monitoring.store');
     Route::get('mahasiswa/bimbingan/{id}', [BimbinganController::class, 'show'])->name('mahasiswa.monitoring.show');
 });
 
-Route::middleware(['auth'])->group(function(){
+Route::middleware(['auth'])->group(function () {
     Route::get('download-skripsi/{filename}', [BimbinganController::class, 'downloadSkripsi'])->name('download.skripsi');
 });
 
@@ -77,11 +80,11 @@ Route::middleware(['auth', 'dosen'])->group(function () {
     Route::post('/dosens/update-profile', [DashboardDosenController::class, 'updateProfile'])->name('dosens.updateProfile');
     Route::get('/dosen/monitoring', [MonitoringDosenController::class, 'index'])->name('dosen.monitoring');
     Route::get('/dosen/monitoring/{id}', [MonitoringDosenController::class, 'show'])
-    ->name('dosens.monitoring.show');
+        ->name('dosens.monitoring.show');
     Route::get('/dosen/monitoring/{id}/{idp}', [MonitoringDosenController::class, 'show2'])
-    ->name('dosens.monitoring.detail');
+        ->name('dosens.monitoring.detail');
     Route::get('/dosen/monitoring-edit/{id}/{idp}', [MonitoringDosenController::class, 'edit'])
-    ->name('dosens.monitoring.edit');
+        ->name('dosens.monitoring.edit');
     Route::put('/dosen/monitoring-update/{id}/{idp}', [MonitoringDosenController::class, 'update'])
         ->name('dosens.monitoring.update');
     // Route::get('/dosen/bimbingan', [BimbinganDosenController::class, 'index'])->name('dosen.bimbingan');
@@ -90,10 +93,10 @@ Route::middleware(['auth', 'dosen'])->group(function () {
 Route::get('/logout', [SessionController::class, 'logout'])->middleware('auth');
 
 // Route::middleware(['auth'])->group(function () {
-    //     Route::get('/admin', [DashboardController::class, 'index'])->name('admin.dashboard');
-    //     Route::get('/mahasiswa', [DashboardMahasiswaController::class, 'index'])->name('mahasiswa.dashboard');
-    //     Route::get('/dosen', [DashboardDosenController::class, 'index'])->name('dosen.dashboard');
-    // Route::get('/mahasiswa/bimbingan', [BimbinganController::class, 'index'])->name('mahasiswa.bimbingan.index');
-    // Route::post('/mahasiswa/bimbingan', [BimbinganController::class, 'store'])->name('mahasiswa.bimbingan.store');
-    // Route::get('/dosen/monitoring', [MonitoringDosenController::class, 'index'])->name('dosen.monitoring');
-    // // Route::get('/dosen/bimbingan', [BimbinganDosenController::class, 'index'])->name('dosen.bimbingan')->name('download.skripsi');;
+//     Route::get('/admin', [DashboardController::class, 'index'])->name('admin.dashboard');
+//     Route::get('/mahasiswa', [DashboardMahasiswaController::class, 'index'])->name('mahasiswa.dashboard');
+//     Route::get('/dosen', [DashboardDosenController::class, 'index'])->name('dosen.dashboard');
+// Route::get('/mahasiswa/bimbingan', [BimbinganController::class, 'index'])->name('mahasiswa.bimbingan.index');
+// Route::post('/mahasiswa/bimbingan', [BimbinganController::class, 'store'])->name('mahasiswa.bimbingan.store');
+// Route::get('/dosen/monitoring', [MonitoringDosenController::class, 'index'])->name('dosen.monitoring');
+// // Route::get('/dosen/bimbingan', [BimbinganDosenController::class, 'index'])->name('dosen.bimbingan')->name('download.skripsi');;

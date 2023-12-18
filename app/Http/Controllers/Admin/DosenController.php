@@ -9,12 +9,19 @@ use Illuminate\Database\QueryException;
 
 class DosenController extends Controller
 {
-    public function index()
-    {
-        $dosens = Dosen::all();
-        
-        return view("admin.dosen.index", compact('dosens'));
-    }
+    // DosenController.php
+
+public function index(Request $request)
+{
+    $dosens = Dosen::when($request->search, function ($query, $search) {
+            return $query->where('name', 'like', '%' . $search . '%');
+        })
+        ->orderBy('name') // Sort by name
+        ->paginate(10);
+
+    return view('admin.dosen.index', compact('dosens'));
+}
+
     
     public function create()
     {

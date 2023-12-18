@@ -9,12 +9,19 @@ use Illuminate\Database\QueryException;
 
 class MahasiswaController extends Controller
 {
-    public function index()
-    {
-        $mahasiswas = Mahasiswa::all();
+    // MahasiswaController.php
 
-        return view("admin.mahasiswa.index", compact('mahasiswas'));
-    }
+public function index(Request $request)
+{
+    $mahasiswas = Mahasiswa::when($request->search, function ($query, $search) {
+            return $query->where('name', 'like', '%' . $search . '%');
+        })
+        ->orderBy('name') // Sort by name
+        ->paginate(10);
+
+    return view('admin.mahasiswa.index', compact('mahasiswas'));
+}
+
 
     public function create()
     {

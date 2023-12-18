@@ -11,12 +11,18 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        $users = User::all();
-    
-        return view('admin.user.index', compact('users'));
-    }
+    public function index(Request $request)
+{
+    $search = $request->input('search');
+
+    $users = User::when($search, function ($query, $search) {
+        return $query->where('name', 'like', '%' . $search . '%');
+    })->paginate(10);
+
+    return view('admin.user.index', compact('users'));
+}
+
+
 
     /**
      * Show the form for creating a new resource.

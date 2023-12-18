@@ -46,10 +46,11 @@ class MonitoringDosenController extends Controller
         $mahasiswa = Mahasiswa::findOrFail($id);
 
         $bimbingans = Bimbingan::where('mahasiswa_id', $mahasiswa->id)
-            ->where(function ($query) use ($dosen) {
-                $query->where('dosen_id', $dosen->id);
-            })
-            ->get();
+        ->where(function ($query) use ($dosen) {
+            $query->where('dosen_id', $dosen->id);
+        })
+        ->orderByDesc('waktu1') // Add this line to sort by waktu1 in descending order
+        ->get();
 
         // dd($mahasiswa);
         // dd($bimbingans);

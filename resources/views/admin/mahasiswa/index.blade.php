@@ -1,8 +1,15 @@
 @extends('layouts.adminapp')
 
 @section('container')
+<div class="flex items-center space-x-4">
 <div class="grid grid-cols-8 gap-4 mb-4">
-    <a href="{{ route('admin.mahasiswa.create') }}" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Tambah Data</a>
+    <a href="{{ route('admin.mahasiswa.create') }}" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Tambah</a>
+    </div><form action="{{ route('admin.mahasiswa.index') }}" method="GET">
+        <div class="flex items-center space-x-4 ml-auto">
+            <input type="text" name="search" placeholder="Cari berdasarkan nama" class="border rounded-lg px-2 py-1">
+            <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5">Cari</button>
+        </div>
+    </form>
 </div>
 <div class="relative overflow-x-auto">
     <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -41,5 +48,8 @@
             @endforeach
         </tbody>
     </table>
+</div>
+<div class="mt-4">
+    {{ $mahasiswas->links() }}
 </div>
 @endsection
