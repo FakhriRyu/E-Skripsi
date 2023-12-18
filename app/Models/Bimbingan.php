@@ -10,6 +10,10 @@ class Bimbingan extends Model
     use HasFactory;
     
     protected $fillable = [ 'pembimbing_id','mahasiswa_id','bagian', 'file_skripsi','waktu1','dosen_id', 'file_revisi', 'status', 'waktu2'];
+
+    protected $rules = [
+        'file_revisi' => 'file|mimes:pdf,doc,docx', // Sesuaikan ini dengan kebutuhan
+    ];
     
     public function pembimbing()
     {

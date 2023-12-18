@@ -13,8 +13,8 @@
                 <input type="datetime-local" id="waktu2" name="waktu2" value="{{ now('Asia/Jakarta')->toDateTimeLocalString() }}" readonly class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
             </div>
             <div class="mb-4">
-                <label for="status" class="text-sm font-medium text-gray-500">Status</label>
-                <select name="status" id="status" class="form-select">
+                <label for="dosen" class="block text-sm font-medium text-gray-900 dark:text-white">Status</label>
+                    <select name="dosen_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     <option value="Menunggu Konfirmasi" {{ old('status', $bimbingan->status) === 'Menunggu Konfirmasi' ? 'selected' : '' }}>Menunggu Konfirmasi</option>
                     <option value="ACC" {{ old('status', $bimbingan->status) === 'ACC' ? 'selected' : '' }}>ACC</option>
                     <option value="Revisi" {{ old('status', $bimbingan->status) === 'Revisi' ? 'selected' : '' }}>Revisi</option>
@@ -24,8 +24,8 @@
                 @enderror
             </div>
             <div class="mb-4">
-                <label for="file_revisi" class="text-sm font-medium text-gray-500">File revisi</label>
-                <input type="file" name="file_revisi" id="file_revisi" class="form-input">
+                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file_input">File revisi</label>
+                <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="file_input" name="file_revisi" type="file">
                 @error('file_revisi')
                     <span class="text-red-500">{{ $message }}</span>
                 @enderror
@@ -33,8 +33,8 @@
 
 
             <div class="mb-4">
-                <label for="keterangan" class="text-sm font-medium text-gray-500">Keterangan</label>
-                <textarea name="keterangan" id="keterangan" class="form-textarea">{{ old('keterangan', $bimbingan->keterangan) }}</textarea>
+                <label for="keterangan"  class="block text-sm font-medium text-gray-600">Keterangan</label>
+                <textarea name="keterangan" id="keterangan" rows="4" class="block w-full mt-1 text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer">{{ old('keterangan', $bimbingan->keterangan) }}</textarea>
                 @error('keterangan')
                     <span class="text-red-500">{{ $message }}</span>
                 @enderror

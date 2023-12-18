@@ -20,6 +20,9 @@
                     <th scope="col" class="px-6 py-3">
                         Waktu dan Tanggal
                     </th>
+                    <th scope="col" class="px-6 py-3">
+                        Aksi
+                    </th>
                 </tr>
             </thead>
             <tbody>
