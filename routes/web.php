@@ -28,6 +28,9 @@ use App\Http\Controllers\Mahasiswa\DashboardMahasiswaController;
 
 Route::get('/login', [SessionController::class, 'index']);
 Route::post('/login', [SessionController::class, 'login'])->name('login');
+Route::get('/', function () {
+    return view('welcome');
+});
 
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin', [DashboardController::class, 'index'])->name('admin.dashboard');

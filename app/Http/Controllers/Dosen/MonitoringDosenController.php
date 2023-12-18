@@ -65,6 +65,8 @@ class MonitoringDosenController extends Controller
     public function show2($id, $idp)
     {
 
+        // dd($idp);
+
         // Get the Pembimbing based on the provided ID
         $bimbingan = Bimbingan::findOrFail($idp);
 
@@ -73,37 +75,52 @@ class MonitoringDosenController extends Controller
         // Pass data to the view
         return view('dosens.monitoring.detail', compact('bimbingan'));
     }
+    public function edit($id, $idp)
+    {
+        // Get the Bimbingan based on the provided ID
+        $bimbingan = Bimbingan::find($idp);
+        $pembimbing = Pembimbing::find($id);
 
+        // dd($pembimbing);
+
+        // Return the view with the Bimbingan data
+        return view('dosens.monitoring.edit', compact('bimbingan', 'pembimbing'));
+    }
 
     public function update(Request $request, $id, $idp)
-{
-    try {
-        // dd($request);
-        // Validasi input form jika diperlukan
+    {
+        // dd($request->all());
+        // Validate the incoming request data
         $request->validate([
-            'file_revisi' => 'nullable|file|mimes:pdf,doc,docx',
             'status' => 'required|in:Menunggu Konfirmasi,ACC,Revisi',
-            'keterangan' => 'nullable|string',
             'waktu2' => 'nullable|date',
+            'keterangan' => 'nullable|string',
+            // 'file_revisi' => 'file|mimes:pdf,doc,docx',
+            // Add any other validation rules as needed
         ]);
-
-        // Temukan Bimbingan berdasarkan ID yang diberikan
-        $bimbingan = Bimbingan::findOrFail($idp);
         
-        // Perbarui kolom non-file berdasarkan data yang diterima dari permintaan
 
-        // Periksa apakah ada file revisi yang dikirimkan melalui permintaan
+        try {
+
+        $bimbingan = Bimbingan::find($idp);
+        $bimbingan->update([
+            // 'judul' => $request->input('judul'),
+            // 'bagian' => $request->input('bagian'),
+            'status' => $request->input('status'),
+            'waktu2' => $request->input('waktu2'),
+            'keterangan' => $request->input('keterangan'),
+            // 'file_revisi' => $request->input('file_revisi')->store('revisi_files'),
+            // 'waktu2' => $request->input('waktu2'), 
+            // Add any other non-file fields here
+        ]);
         if ($request->hasFile('file_revisi')) {
-            // Menyimpan file revisi ke direktori 'revisi_files' di penyimpanan Laravel
-            $fileRevisiPath = $request->file('file_revisi')->store('revisi_files', 'public');
-
-            // Perbarui kolom 'file_revisi' pada model Bimbingan
-            $bimbingan->file_revisi = $fileRevisiPath;
+            // Delete the old file
+            Storage::delete($bimbingan->file_revisi);
+            // Store the new file
+            $bimbingan->file_revisi = $request->file('file_revisi')->store('revisi_files');
         }
-
-        // Simpan perubahan yang telah dibuat pada model Bimbingan
+        // Save the changes
         $bimbingan->save();
-
         return redirect()->route('dosens.monitoring.detail', ['id' => $id, 'idp' => $bimbingan->id])
             ->with('success', 'Bimbingan updated successfully');
     } catch (\Exception $e) {
@@ -112,15 +129,4 @@ class MonitoringDosenController extends Controller
 }
 
 
-
-    // Edit method to display the edit form for Bimbingan
-    public function edit($id, $idp)
-    {
-        // Get the Bimbingan based on the provided ID
-        $bimbingan = Bimbingan::findOrFail($idp);
-        $pembimbing = Pembimbing::findOrFail($id);
-
-        // Return the view with the Bimbingan data
-        return view('dosens.monitoring.edit', compact('bimbingan', 'pembimbing'));
-    }
 }
