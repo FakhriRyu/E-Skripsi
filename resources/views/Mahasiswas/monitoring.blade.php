@@ -19,7 +19,7 @@
                     Status
                 </th>
                 <th scope="col" class="px-6 py-3">
-                    Keterangan
+                    Pembimbing
                 </th>
                 <th scope="col" class="px-6 py-3">
                     Waktu dan Tanggal

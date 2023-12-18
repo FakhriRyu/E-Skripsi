@@ -60,7 +60,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
 Route::middleware(['auth', 'mahasiswa'])->group(function () {
     Route::get('/mahasiswa', [DashboardMahasiswaController::class, 'index'])->name('mahasiswa.dashboard');
-
+    Route::post('/mahasiswa/update-profile', [DashboardMahasiswaController::class, 'updateProfile'])->name('mahasiswa.updateProfile');
+    Route::post('/mahasiswa/updatePassword', [DashboardMahasiswaController::class, 'updatePassword'])->name('mahasiswa.updatePassword');
     Route::get('/mahasiswa/monitoring', [BimbinganController::class, 'index'])->name('mahasiswa.monitoring.index');
     Route::get('/mahasiswa/bimbingan',[BimbinganController::class, 'create'])->name('mahasiswa.monitoring.create');
     route::post('mahasiswa/bimbingan', [BimbinganController::class, 'store'])->name('mahasiswa.monitoring.store');
@@ -73,7 +74,7 @@ Route::middleware(['auth'])->group(function(){
 
 Route::middleware(['auth', 'dosen'])->group(function () {
     Route::get('/dosen', [DashboardDosenController::class, 'index'])->name('dosen.dashboard');
-
+    Route::post('/dosens/update-profile', [DashboardDosenController::class, 'updateProfile'])->name('dosens.updateProfile');
     Route::get('/dosen/monitoring', [MonitoringDosenController::class, 'index'])->name('dosen.monitoring');
     Route::get('/dosen/monitoring/{id}', [MonitoringDosenController::class, 'show'])
     ->name('dosens.monitoring.show');
