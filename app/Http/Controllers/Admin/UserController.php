@@ -14,14 +14,22 @@ class UserController extends Controller
     public function index(Request $request)
 {
     $search = $request->input('search');
+    $role = $request->input('role');
 
     $users = User::when($search, function ($query, $search) {
         return $query->where('name', 'like', '%' . $search . '%');
+    })->when($role, function ($query, $role) {
+        return $query->where('role', $role);
     })->paginate(10);
 
     return view('admin.user.index', compact('users'));
 }
 
+
+public function import(Request $request)
+{
+    dd($request->file('file'));
+}
 
 
     /**

@@ -1,12 +1,12 @@
 @extends('layouts.dosenapp')
 @section('containerdosen')
-    <div class="max-w-xl mx-auto p-8">
-        <h2 class="text-2xl font-semibold mb-4">Periksa Bimbingan</h2>
-
         {{-- {{ dd($bimbingan) }} --}}
         <form action="{{ route('dosens.monitoring.update', ['id' => $pembimbing->id, 'idp' => $bimbingan->id]) }}" method="POST">
             @csrf
             @method('PUT')
+            <div class="flex items-center mt-3 justify-center">
+                <div class="w-full max-w-md bg-white shadow-md p-6">
+                    <h2 class="text-2xl font-semibold mb-4">Periksa Bimbingan</h2>
             {{-- <div class="mb-4">
                 <label for="file_revisi" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">File revisi</label>
                 <input type="file" name="file_revisi" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400">
@@ -40,5 +40,6 @@
                 <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Kirim</button>
             </div>
         </form>
+    </div>
     </div>
 @endsection

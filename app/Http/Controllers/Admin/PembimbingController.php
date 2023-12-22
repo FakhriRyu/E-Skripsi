@@ -43,4 +43,33 @@ class PembimbingController extends Controller
             return redirect()->route('admin.pembimbing.create')->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
         }
     }
+
+    public function edit($id)
+    {
+        $pembimbing = Pembimbing::with('mahasiswa', 'dosen1', 'dosen2')->find($id);
+        $mahasiswas = Mahasiswa::all();
+        $dosens = Dosen::all();
+        
+        return view('admin.pembimbing.edit', compact('pembimbing', 'mahasiswas', 'dosens'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        try {
+            // Validation
+            $validatedData = $request->validate([
+                'mahasiswa_id' => 'required|exists:mahasiswas,id',
+                'dosen1_id' => 'required|exists:dosens,id',
+                'dosen2_id' => 'required|exists:dosens,id',
+            ]);
+
+            // Update data in the database
+            $pembimbing = Pembimbing::find($id);
+            $pembimbing->update($validatedData);
+
+            return redirect()->route('admin.pembimbing.index')->with('success', 'Data Pembimbing berhasil diperbarui.');
+        } catch (\Exception $e) {
+            return redirect()->route('admin.pembimbing.edit', $id)->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+        }
+    }
 }

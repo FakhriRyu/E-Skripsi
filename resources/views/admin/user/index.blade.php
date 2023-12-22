@@ -2,7 +2,7 @@
 
 @section('container')
 <div class="flex items-center space-x-4">
-    <div class="grid grid-cols-8 gap-4 mb-4">
+    <div class="grid grid-cols-7 gap-4 mb-4">
         <a href="{{ route('users.create') }}"
         class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
         Tambah</a>
@@ -10,7 +10,19 @@
     <form action="{{ route('admin.users.index') }}" method="GET">
         <div class="flex items-center space-x-4">
             <input type="text" name="search" placeholder="cari berdasarkan nama" class="border rounded-lg px-2 py-1">
-            <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5">Cari</button>
+
+            <!-- Dropdown untuk filter berdasarkan role -->
+            <select name="role" class="border rounded-lg px-2 py-1">
+                <option value="" selected>Semua Role</option>
+                <option value="admin" {{ request('role') == 'admin' ? 'selected' : '' }}>Admin</option>
+                <option value="mahasiswa" {{ request('role') == 'mahasiswa' ? 'selected' : '' }}>Mahasiswa</option>
+                <option value="dosen" {{ request('role') == 'dosen' ? 'selected' : '' }}>Dosen</option>
+                <!-- Tambahkan role lainnya sesuai kebutuhan -->
+            </select>
+
+            <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5">
+                Cari
+            </button>
         </div>
     </form>
 </div>
@@ -22,7 +34,7 @@
                     Nama
                 </th>
                 <th scope="col" class="px-6 py-3">
-                    username
+                    Email atau NPM
                 </th>
                 <th scope="col" class="px-6 py-3">
                     Role

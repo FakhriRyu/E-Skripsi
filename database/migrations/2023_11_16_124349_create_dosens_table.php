@@ -18,7 +18,11 @@ return new class extends Migration
             $table->string('NomorNIP');
             $table->timestamps();
 
-            $table->foreign('NIP')->references('username')->on('users')->onDelete('cascade');
+            $table->foreign('NIP')
+      ->references('username')
+      ->on('users')
+      ->onDelete('cascade')
+      ->onUpdate('cascade');
         });
     }
 
