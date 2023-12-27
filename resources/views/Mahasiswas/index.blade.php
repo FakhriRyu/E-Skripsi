@@ -7,7 +7,7 @@
         NPM: {{ $mahasiswa->NPM }}
 
         <button data-modal-target="password-modal" data-modal-toggle="password-modal"
-            class="block text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
+            class="block text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800 "
             type="button">
             Ubah Password
         </button>
@@ -88,17 +88,17 @@
             </div>
         </div>
     </div>
-    <div class="flex space-x-4">
+    <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
         <a href="#" class="flex-1 max-w-sm p-6 bg-yellow-400 border rounded-lg shadow hover:bg-yellow-600 dark:bg-yellow-700 dark:border-yellow-700 dark:hover:bg-yellow-800">
-            <h5 class="mb-4 text-2xl font-bold tracking-tight text-white dark:text-white">Status Bimbingan</h5>
+            <h5 class="mb-4 text-2xl font-bold tracking-tight text-white dark:text-white text-center sm:text-left">Status Bimbingan</h5>
             <p class="font-semibold mb-4 text-2xl text-white dark:text-white">{{ $latestBimbinganStatus }}</p>
         </a>
         <a href="#" class="flex-1 max-w-sm p-6 bg-green-500 border rounded-lg shadow hover:bg-green-600 dark:bg-green-700 dark:border-green-700 dark:hover:bg-green-800">
-            <h5 class="mb-4 text-2xl font-bold tracking-tight text-white dark:text-white">Pembimbing Utama</h5>
+            <h5 class="mb-4 text-2xl font-bold tracking-tight text-white dark:text-white text-center sm:text-left">Pembimbing Utama</h5>
             <p class="font-semibold text-2xl text-white dark:text-white">{{ $dosenPembimbing1 }}</p>
         </a>
         <a href="#" class="flex-1 block max-w-sm p-6 bg-blue-500 border rounded-lg shadow hover:bg-blue-600 dark:bg-blue-700 dark:border-blue-700 dark:hover:bg-blue-800">
-            <h5 class="mb-4 text-2xl font-bold tracking-tight text-white dark:text-white">Pembimbing Pendamping</h5>
+            <h5 class="mb-4 text-2xl font-bold tracking-tight text-white dark:text-white text-center sm:text-left">Pembimbing Pendamping</h5>
             <p class="font-semibold text-2xl text-white dark:text-white">{{ $dosenPembimbing2 }}</p>
         </a>
     </div> 

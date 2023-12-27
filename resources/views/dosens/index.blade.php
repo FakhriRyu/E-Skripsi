@@ -1,6 +1,7 @@
 @extends('layouts.dosenapp')
 
 @section('containerdosen')
+<div class="container mx-auto">
     <div
         class="items-center justify-between p-4 bg-white border border-gray-200 rounded-lg shadow-sm sm:flex dark:border-gray-700 sm:p-6 dark:bg-gray-800">
         Selamat Datang, {{ $dosen->name }}! <br>
@@ -87,7 +88,7 @@
         </div>
     </div>
 
-    <div class="flex space-x-4">
+    <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
         <a href="#"
             class="flex-1 max-w-sm p-6 bg-yellow-400 border rounded-lg shadow hover:bg-yellow-600 dark:bg-yellow-700 dark:border-yellow-700 dark:hover:bg-yellow-800">
             <h5 class="mb-2 text-2xl font-bold tracking-tight text-white dark:text-white">Mahasiswa Menunggu Konfirmasi</h5>
@@ -103,6 +104,7 @@
             <h5 class="mb-2 text-2xl font-bold tracking-tight text-white dark:text-white">Total Bimbingan</h5>
             <p class="font-bold text-5xl text-white dark:text-white">{{ $totalBimbingan }}</p>
         </a>
+    </div>
     </div>
 
     <script>

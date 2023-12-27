@@ -91,7 +91,7 @@ public function index(Request $request)
             $validatedData = $request->validate([
                 'name' => 'required|string',
                 'NIP' => 'required|string|unique:dosens,nip,' . $id,
-                'NomorNIP' => 'required|string|' . $id,
+                'NomorNIP' => 'required|string|unique:dosens,nip,' . $id,
 
             ]);
 
